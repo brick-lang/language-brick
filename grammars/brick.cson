@@ -1,0 +1,19 @@
+'fileTypes': [
+  'br'
+]
+'name':'Brick'
+'patterns': [
+  {
+    'match': '\\b(and|mod|or)\\b'
+    'name': 'keyword.operator.brick'
+  }
+  {
+    'match': '\\b(if|else|match)\\b'
+    'name': 'keyword.control.brick'
+  }
+  {
+    'match': '\\b(assert|let)\\b'
+    'name': 'keyword.other.brick'
+  }
+]
+'scopeName': 'source.brick'

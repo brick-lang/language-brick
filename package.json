@@ -1,0 +1,12 @@
+{
+  "name": "language-brick",
+  "version": "0.0.1",
+  "private":true,
+  "description": "Syntax support for the Brick language",
+  "repository": "https://github.com/brick-lang/language-brick",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {}
+}
