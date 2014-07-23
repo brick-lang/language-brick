@@ -4,16 +4,180 @@
 'name':'Brick'
 'patterns': [
   {
+    "begin": "(^[ \\t]+)?(?=#)"
+    "beginCaptures":
+      "1":
+        "name": "punctuation.whitespace.comment.leading.brick"
+    "end": "(?!\\G)"
+    "patterns": [
+      {
+        "begin": "#",
+        "beginCaptures":
+          "0":
+            "name": "punctuation.definition.comment.brick"
+        "end": "\\n",
+        "name": "comment.line.number-sign.brick"
+      }
+    ]
+  },
+  {
+    'match': '\\b([1-9]+[0-9]*|0)'
+    'name': 'constant.numeric.integer.decimal.brick'
+  },
+  {
+    'match': '\\b(using)'
+    'name': 'keyword.control.using.brick'
+  }
+  {
+    'match': '\\b(import)'
+    'name': 'keyword.control.import.brick'
+  }
+  {
     'match': '\\b(and|mod|or)\\b'
     'name': 'keyword.operator.brick'
   }
   {
-    'match': '\\b(if|else|match)\\b'
-    'name': 'keyword.control.brick'
+    'comment': 'keywords that delimit flow conditionals'
+    'match': '\\b(if|else|match|cond)\\b'
+    'name': 'keyword.control.conditional.brick'
   }
   {
-    'match': '\\b(assert|let)\\b'
+    'comment': 'keywords that alter flow from within a block'
+    'name': 'keyword.control.statement.brick'
+    'match': "\\b(break|return)\\b"
+  }
+  {
+    'comment': 'keyword operators that evaluate to true or false'
+    'match': '\\b(and|not|or)\\b'
+    'name': 'keyword.operator.logical.brick'
+  }
+  {
+    'comment': 'keywords that haven\'t fit into other groups (yet).'
+    'match': '\\b(as|assert|let)\\b'
     'name': 'keyword.other.brick'
+  }
+  {
+    'match': '->'
+    'name': 'keyword.control.yields.brick'
+  }
+  {
+    'match': '\\=\\=|<|>|\\!\\=|<\\=>'
+    'name': 'keyword.operator.comparison'
+  }
+  {
+    'match': '\\=\\!'
+    'name': 'keyword.operator.assignment.augmented.brick'
+  }
+  {
+    'match': '\\+|\\-|\\*|/'
+    'name': 'keyword.operator.arithmetic.brick'
+  }
+  {
+    'match': '\\='
+    'name': 'keyword.operator.assignment.brick'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'keyword.control.class.brick'
+      '2':
+        'name': 'entity.name.type.class.brick'
+    'match': '^\\s*(class)\\s*([A-Z][a-zA-Z]+)'
+    'name': 'meta.class.brick'
+  }
+  {
+    "begin": "^\\s*(class)\\s+(?=[a-zA-Z_][a-zA-Z_0-9]*\\s*\\()",
+    "beginCaptures":
+      "1":
+        "name": "storage.type.class.brick"
+    "end": "(\\n)"
+    "endCaptures":
+      "1":
+        "name": "punctuation.definition.implementation.end.brick"
+    "name": "meta.class.brick"
+    "patterns": [
+      {
+        "begin": "(?=[A-Za-z_][A-Za-z0-9_]*)",
+        "contentName": "entity.name.type.class.brick",
+        "end": "(?![A-Za-z0-9_])",
+        "patterns": [{ "include": "#entity_name_class" }]
+      }
+      {
+        "begin": "(\\()",
+        "beginCaptures":
+          "1":
+            "name": "punctuation.definition.constructor.begin.brick"
+        "contentName": "meta.class.constructor.brick",
+        "end": "(?=\\))",
+        "patterns": [
+          # Include method proto here
+        ]
+      }
+      {
+        'match': '\\b(impl)\\b'
+        'name': 'keyword.control.impl.brick'
+      }
+    ]
+  }
+  {
+    'begin': '^\\s*(fn)\\s+(?=[A-Za-z_][A-Za-z0-9_]*\\s*)'
+    'beginCaptures':
+      '1':
+        'name': 'storage.type.function.brick'
+    'end': '(\\n)'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.section.function.begin.brick'
+    'name': 'meta.function.brick'
+    'patterns': [
+      {
+        "begin": "(?=[A-Za-z_][A-Za-z0-9_!]*)",
+        "contentName": "entity.name.function.brick",
+        "end": "(?![A-Za-z0-9_!])",
+        "patterns": [{ "include": "#entity_name_function" }]
+      }
+      {
+        "begin": "(\\()",
+        "beginCaptures": {
+          "1": {
+            "name": "punctuation.definition.parameters.begin.brick"
+          }
+        },
+        "contentName": "meta.function.parameters.brick",
+        "end": "(?=\\)\\s*)",
+        "patterns": [ { "include": "#arguments" } ]
+      }
+    ]
+  }
+  {
+    'begin': '^\\s*(method)\\s+(?=[A-Za-z_][A-Za-z0-9_]*\\s*)'
+    'beginCaptures':
+      '1':
+        'name': 'storage.type.method.brick'
+    'end': '(\\n)'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.section.method.begin.brick'
+    'name': 'meta.method.brick'
+    'patterns': [
+      {
+        "begin": "(?=[A-Za-z_][A-Za-z0-9_!]*)",
+        "contentName": "entity.name.method.brick",
+        "end": "(?![A-Za-z0-9_!])",
+        "patterns": [{ "include": "#entity_name_function" }]
+      }
+      {
+        "begin": "(\\()",
+        "beginCaptures": {
+          "1": {
+            "name": "punctuation.definition.parameters.begin.brick"
+          }
+        },
+        "contentName": "meta.method.parameters.brick",
+        "end": "(?=\\)\\s*)",
+        "patterns": [ { "include": "#arguments" } ]
+      }
+    ]
   }
 ]
 'scopeName': 'source.brick'
